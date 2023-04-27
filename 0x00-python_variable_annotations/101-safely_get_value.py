@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """More involved type annotations"""
-from typing import Union, Sequence, Any, TypeVar, Mapping
+from typing import Union, Any, TypeVar, Mapping
 
 # define a type variable T
 T = TypeVar('T')
