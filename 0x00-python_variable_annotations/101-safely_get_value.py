@@ -11,5 +11,4 @@ def safely_get_value(dct: Mapping, key: Any,
     """Augmented code with correct duck typed annotations"""
     if key in dct:
         return dct[key]
-    else:
-        return default
+    return default
