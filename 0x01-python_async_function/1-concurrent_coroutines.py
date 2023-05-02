@@ -8,7 +8,7 @@ from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> List[float]:
+async def wait_n(n: int = 0, max_delay: int = 10) -> List[float]:
     """
     An asynchronous coroutine that spawns `n` instances of the `wait_random`
     coroutine with the specified `max_delay`, and returns a list of the
