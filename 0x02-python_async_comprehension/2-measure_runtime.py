@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A module with Async Comprehensions."""
+"""A module that measures run time for four parallel comprehensions."""
 
 import asyncio
 import time
