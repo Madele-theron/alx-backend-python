@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""
+Module containing the unit tests for the access_nested_map
+function from the utils module.
+"""
+import unittest
+import utils
+from parameterized import parameterized, parameterized_class
+
+class TestAccessNestedMap(unittest.TestCase):
+    """Test case for access_nested_map function"""
+    @parameterized.expand([
+        ({"a": 1}, ("a",), 1),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
+        ({"a": {"b": 2}}, ("a", "b"), 2),
+    ])
+    def test_access_nested_map(self, nested_map, path, expected_result):
+        """
+        Test the access_nested_map function with various
+        input cases. Decorated with  @parameterized.expand. 
+
+        Args:
+            nested_map (dict): Nested dictionary.
+            path (tuple): The path of keys to access the value.
+            expected_result: The expected result
+        """
+        result = utils.access_nested_map(nested_map, path)
+        self.assertEqual(result, expected_result)
