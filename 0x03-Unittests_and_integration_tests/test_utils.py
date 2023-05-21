@@ -47,4 +47,4 @@ class TestAccessNestedMap(unittest.TestCase):
         with self.assertRaises(KeyError) as cm:
             utils.access_nested_map(nested_map, path)
 
-        self.assertEqual(str(cm.exception), expected_error)
+        self.assertEqual(repr(cm.exception), repr(expected_error))
