@@ -6,6 +6,7 @@ function from the utils module.
 import unittest
 from unittest.mock import patch
 import utils
+from utils import memoize
 from parameterized import parameterized, parameterized_class
 from typing import Any, Dict, Tuple
 
@@ -39,7 +40,6 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map_exception(
             self, nested_map: Dict[str, Any], path: Tuple[str, ...],
             expected_error: Any) -> None:
-
         """
         Test that a KeyError is raised with the expected
         error message for each test case.
@@ -64,8 +64,9 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     @patch('utils.requests.get')
-    def test_get_json(self, test_url: str, test_payload: Dict[str, Any],
-                      mock_requests: Any) -> None:
+    def test_get_json(
+        self, test_url: str, test_payload: Dict[str, Any],
+            mock_requests: Any) -> None:
         """
         Method to test that the get_json function returns
         the expected result.
@@ -91,7 +92,7 @@ class TestMemoize(unittest.TestCase):
             """A method that returns 42"""
             return 42
 
-        @utils.memoize
+        @memoize
         def a_property(self) -> int:
             """
             A property that calls a_method and caches the result
