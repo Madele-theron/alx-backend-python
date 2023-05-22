@@ -7,6 +7,7 @@ import unittest
 from unittest.mock import patch
 import utils
 from parameterized import parameterized, parameterized_class
+from typing import Any, Dict, Tuple
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -16,7 +17,9 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
-    def test_access_nested_map(self, nested_map, path, expected_result):
+    def test_access_nested_map(
+            self, nested_map: Dict[str, Any], path: Tuple[str, ...],
+            expected_error: Any) -> None:
         """
         Test the access_nested_map function with various
         input cases. Decorated with  @parameterized.expand.
@@ -34,7 +37,9 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), KeyError('b')),
     ])
     def test_access_nested_map_exception(
-            self, nested_map, path, expected_error):
+            self, nested_map: Dict[str, Any], path: Tuple[str, ...],
+            expected_error: Any) -> None:
+
         """
         Test that a KeyError is raised with the expected
         error message for each test case.
@@ -59,7 +64,8 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     @patch('utils.requests.get')
-    def test_get_json(self, test_url, test_payload, mock_requests):
+    def test_get_json(self, test_url: str, test_payload: Dict[str, Any],
+                      mock_requests: Any) -> None:
         """
         Method to test that the get_json function returns
         the expected result.
@@ -81,19 +87,19 @@ class TestMemoize(unittest.TestCase):
     class TestClass:
         """A method that tests the classes"""
 
-        def a_method(self):
+        def a_method(self) -> int:
             """A method that returns 42"""
             return 42
 
         @utils.memoize
-        def a_property(self):
+        def a_property(self) -> int:
             """
             A property that calls a_method and caches the result
             """
             return self.a_method()
 
     @patch.object(TestClass, 'a_method')
-    def test_memoize(self, mock_method):
+    def test_memoize(self, mock_method: Any) -> None:
         """
         Method to test that the memoize function returns
         the expected result.
