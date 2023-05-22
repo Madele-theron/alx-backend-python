@@ -9,7 +9,6 @@ import utils
 from parameterized import parameterized, parameterized_class
 
 
-
 class TestAccessNestedMap(unittest.TestCase):
     """Test case for access_nested_map function"""
     @parameterized.expand([
@@ -64,7 +63,6 @@ class TestGetJson(unittest.TestCase):
         """
         Method to test that the get_json function returns
         the expected result.
-
         """
 
         mock_response = mock_requests.return_value
@@ -74,6 +72,42 @@ class TestGetJson(unittest.TestCase):
 
         self.assertEqual(result, test_payload)
         mock_requests.assert_called_once_with(test_url)
+
+
+class TestMemoize(unittest.TestCase):
+    """A class that contains the test case
+    for memoization decorator."""
+
+    class TestClass:
+        """A method that tests the classes"""
+
+        def a_method(self):
+            """A method that returns 42"""
+            return 42
+
+        @utils.memoize
+        def a_property(self):
+            """
+            A property that calls a_method and caches the result
+            """
+            return self.a_method()
+
+    @patch.object(TestClass, 'a_method')
+    def test_memoize(self, mock_method):
+        """
+        Method to test that the memoize function returns
+        the expected result.
+        The a_method should only get called once.
+        """
+        test_instance = self.TestClass()
+
+        result1 = test_instance.a_property
+        result2 = test_instance.a_property
+
+        self.assertEqual(result1, 42)
+        self.assertEqual(result2, 42)
+        mock_method.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
