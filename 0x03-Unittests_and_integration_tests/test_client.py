@@ -31,7 +31,7 @@ class TestGithubOrgClient(unittest.TestCase):
         # Patch the org property and mock its return value
         with patch.object(
             GithubOrgClient, "org", new_callable=PropertyMock
-            ) as mock:
+                ) as mock:
             mock.return_value = mock_payload
 
             test_client = GithubOrgClient("testorg")
@@ -39,6 +39,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
             expected_url = "https://api.github.com/orgs/testorg/repos"
             self.assertEqual(public_repos_url, expected_url)
+
 
 if __name__ == "__main__":
     unittest.main()
