@@ -19,7 +19,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(
             self, nested_map: Dict[str, Any], path: Tuple[str, ...],
-            expected_error: Any) -> None:
+            expected_result: Any) -> None:
         """
         Test the access_nested_map function with various
         input cases. Decorated with  @parameterized.expand.
