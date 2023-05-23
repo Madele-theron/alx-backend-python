@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import patch, PropertyMock
 from parameterized import parameterized
 from client import GithubOrgClient
+from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -61,20 +62,13 @@ class TestGithubOrgClient(unittest.TestCase):
                 "https://api.github.com/orgs/testorg/repos")
 
     @parameterized.expand([
-        # (repo, license_key)
         ({"license": {"key": "my_license"}}, "my_license", True),
-        ({"license": {"key": "other_license"}}, "my_license", False),
+        ({"license": {"key": "other_license"}}, "my_license", False)
     ])
-    def test_has_license(
-        self,
-        repo: dict,
-        license_key: str,
-        expected_result: bool
-    ) -> None:
+    def test_has_license(self, repo, license_key, expected_result):
         """to unit-test GithubOrgClient.has_license."""
-        test_client = GithubOrgClient("test")
 
-        result = test_client.has_license(repo, license_key)
+        result = GithubOrgClient.has_license(repo, license_key)
 
         self.assertEqual(result, expected_result)
 
