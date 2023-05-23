@@ -37,8 +37,13 @@ class TestGithubOrgClient(unittest.TestCase):
             test_client = GithubOrgClient("testorg")
             public_repos_url = test_client._public_repos_url
 
-            expected_url = "https://api.github.com/orgs/testorg/repos"
+            expected_url = "test_url"
             self.assertEqual(public_repos_url, expected_url)
+
+    @patch('client.get_json')
+    def test_public_repos(self, mock_json):
+        """Unit-test GithubOrgClient.public_repos"""
+        
 
 
 if __name__ == "__main__":
